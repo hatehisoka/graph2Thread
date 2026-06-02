@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "flowcharts": [
+    {
+      "name": "writer_1",
+      "next_id": 5,
+      "blocks": [
+        {
+          "id": 1,
+          "kind": "start",
+          "x": 160,
+          "y": 60,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 2,
+          "kind": "assign",
+          "x": 160,
+          "y": 150,
+          "target": "x",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 1,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 3,
+          "kind": "print",
+          "x": 160,
+          "y": 240,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "x",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 4,
+          "kind": "end",
+          "x": 160,
+          "y": 330,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        }
+      ],
+      "edges": [
+        {
+          "src": 1,
+          "dst": 2,
+          "branch": null
+        },
+        {
+          "src": 2,
+          "dst": 3,
+          "branch": null
+        },
+        {
+          "src": 3,
+          "dst": 4,
+          "branch": null
+        }
+      ]
+    },
+    {
+      "name": "writer_2",
+      "next_id": 5,
+      "blocks": [
+        {
+          "id": 1,
+          "kind": "start",
+          "x": 160,
+          "y": 60,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 2,
+          "kind": "assign",
+          "x": 160,
+          "y": 150,
+          "target": "x",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 2,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 3,
+          "kind": "print",
+          "x": 160,
+          "y": 240,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "x",
+          "cmp": "eq",
+          "const": 0
+        },
+        {
+          "id": 4,
+          "kind": "end",
+          "x": 160,
+          "y": 330,
+          "target": "",
+          "source_kind": "const",
+          "source_var": "",
+          "source_const": 0,
+          "var": "",
+          "cmp": "eq",
+          "const": 0
+        }
+      ],
+      "edges": [
+        {
+          "src": 1,
+          "dst": 2,
+          "branch": null
+        },
+        {
+          "src": 2,
+          "dst": 3,
+          "branch": null
+        },
+        {
+          "src": 3,
+          "dst": 4,
+          "branch": null
+        }
+      ]
+    }
+  ]
+}
