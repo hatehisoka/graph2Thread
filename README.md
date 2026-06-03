@@ -5,9 +5,9 @@ with a set of flowcharts** (one flowchart per thread), **translate** that set
 into a runnable multithreaded program, and **test** it by systematically
 enumerating thread interleavings.
 
-This implements the lab assignment: Point 1 (graphical flowchart editor),
-Point 2 (translation to source code), Point 3 (interleaving-aware testing with
-the K-operations percentage).
+Covers three areas: a graphical flowchart editor (Point 1), automatic
+translation to multithreaded Python source code (Point 2), and
+interleaving-aware testing with the K-operations percentage (Point 3).
 
 ---
 
@@ -30,11 +30,10 @@ python3 selftest.py
 python3 examples/make_examples.py
 ```
 
-> **macOS note.** This machine's *system* `/usr/bin/python3` ships an ancient
-> Tk 8.5 that refuses to start on macOS 26. The Homebrew interpreter was given
-> a modern Tk with `brew install python-tk@3.14` (Tcl/Tk 9), so `python3
-> main.py` works. If you ever see `No module named '_tkinter'`, install a
-> Tk-enabled Python; the CLI still works without it.
+> **Note.** If you see `No module named '_tkinter'`, your Python build was
+> compiled without Tk support. On macOS install a Tk-enabled Python
+> (`brew install python-tk`); on Linux install `python3-tk` via your package
+> manager. The headless CLI works without Tk in any case.
 
 ---
 
@@ -157,13 +156,29 @@ python3 -m g2t.cli test examples/branch_demo.json examples/branch_demo_tests.jso
 
 ## File formats (JSON)
 
-**Project** — `{"version":1,"flowcharts":[{ "name", "blocks":[...], "edges":[...] }]}`
-where a block has `id,kind,x,y` plus kind-specific fields
-(`target/source_kind/source_var/source_const`, `var`, `cmp/const`), and an edge
-is `{src,dst,branch}` (`branch` is `null`, or `true`/`false` for a Branch
-block's two edges).
+**Project** — saved by `File → Save` as a single `.json` file that contains
+both the flowcharts and the test set:
 
-**Test set** — `{"version":1,"tests":[{"name","input":[...],"expected":[...]}]}`.
+```json
+{
+  "version": 1,
+  "flowcharts": [
+    { "name": "thread_0", "blocks": [...], "edges": [...] }
+  ],
+  "tests": [
+    { "name": "test 1", "input": [5], "expected": [5] }
+  ]
+}
+```
+
+A block has `id, kind, x, y` plus kind-specific fields
+(`target/source_kind/source_var/source_const`, `var`, `cmp/const`); an edge is
+`{src, dst, branch}` where `branch` is `null` for normal edges and `true`/`false`
+for the two outgoing edges of a Branch block.
+
+The `Testing` tab also has independent **Load / Save** buttons to import or
+export the test set alone (same `{"version":1,"tests":[...]}` schema), which is
+useful for sharing test sets between projects.
 
 ---
 
