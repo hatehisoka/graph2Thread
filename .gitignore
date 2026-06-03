@@ -13,3 +13,4 @@ __pycache__/
 # Claude Code internal
 .claude/
 GUIDE.md
+CHEATSHEET.md
