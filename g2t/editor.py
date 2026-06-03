@@ -214,8 +214,10 @@ class TestCaseDialog(tk.Toplevel):
         try:
             inp = T.parse_int_tokens(self.t_in.get("1.0", "end"))
             outp = T.parse_int_tokens(self.t_out.get("1.0", "end"))
+            T.validate_token_range(inp, "input value")
+            T.validate_token_range(outp, "expected output value")
         except ValueError as e:
-            messagebox.showerror("Invalid", "Inputs/outputs must be integers.\n" + str(e), parent=self)
+            messagebox.showerror("Invalid", "Inputs/outputs must be integers in 0..2³¹-1.\n" + str(e), parent=self)
             return
         self.tc.name = self.v_name.get().strip() or "test"
         self.tc.input_tokens = inp
@@ -753,8 +755,16 @@ class App(tk.Tk):
         if not path:
             return
         try:
+            import json as _json
             with open(path, "r", encoding="utf-8") as fh:
-                self.project = M.Project.from_json(fh.read())
+                raw = fh.read()
+            self.project = M.Project.from_json(raw)
+            data = _json.loads(raw)
+            if "tests" in data:
+                self.testset = T.TestSet.from_json(
+                    _json.dumps({"version": 1, "tests": data["tests"]}))
+            else:
+                self.testset = T.TestSet()
         except Exception as e:
             messagebox.showerror("Open failed", str(e))
             return
@@ -764,6 +774,7 @@ class App(tk.Tk):
         self.dirty = False
         self._refresh_threads()
         self._select_thread(0)
+        self._refresh_tests()
         self._update_title()
         self._set_status("Opened " + path)
 
@@ -771,8 +782,11 @@ class App(tk.Tk):
         if self.path is None:
             return self.save_project_as()
         try:
+            import json as _json
+            data = _json.loads(self.project.to_json())
+            data["tests"] = _json.loads(self.testset.to_json()).get("tests", [])
             with open(self.path, "w", encoding="utf-8") as fh:
-                fh.write(self.project.to_json())
+                fh.write(_json.dumps(data, indent=2))
         except Exception as e:
             messagebox.showerror("Save failed", str(e))
             return

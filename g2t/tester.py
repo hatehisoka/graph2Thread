@@ -53,6 +53,13 @@ def parse_int_tokens(text: str) -> List[int]:
     return [int(tok) for tok in re.split(r"\s+", text)]
 
 
+def validate_token_range(tokens: List[int], label: str = "value") -> None:
+    """Raise ValueError if any token is outside the valid 0..2^31-1 range."""
+    for t in tokens:
+        if not (M.INT_MIN <= t <= M.INT_MAX):
+            raise ValueError("{} {} is outside the allowed range 0..2³¹-1".format(label, t))
+
+
 def format_output(tokens) -> str:
     """Canonical printed form: one integer per line (matches PRINT)."""
     return "\n".join(str(t) for t in tokens)

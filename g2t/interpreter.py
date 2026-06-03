@@ -124,7 +124,8 @@ class Engine:
             next_pc = succ.get(None)
         elif b.kind == M.INPUT:
             mem = state.clone_mem()
-            mem[b.var] = int(self.input_tokens[input_pos])
+            val = int(self.input_tokens[input_pos])
+            mem[b.var] = max(M.INT_MIN, min(M.INT_MAX, val))
             input_pos = input_pos + 1
             next_pc = succ.get(None)
         elif b.kind == M.PRINT:
